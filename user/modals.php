@@ -1,6 +1,10 @@
 <!-- Link Model -->
 <?php 
+if ($_SESSION['role'] == "member" || $_SESSION['role'] == "admin") {
 $links = selectQuery('linksinformation');
+}else{
+  $links = mysqli_query($conn,"SELECT * FROM linksinformation WHERE type ='free'");
+}
 while($link = mysqli_fetch_assoc($links)) {?>
 <div class="modal fade mb-5" id="linkInfo<?php echo $link['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

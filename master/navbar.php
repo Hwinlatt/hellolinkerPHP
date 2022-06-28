@@ -1,11 +1,10 @@
-<?php $user = selectQuery('users', 'email', $_SESSION['email']); ?>
-
-
+<?php 
+$user = selectQuery('users', 'email', $_SESSION['email']); ?>
 <nav class="navbar bg-light shadow ">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="<?php herf('img/linklogo.jpg') ?>" alt="" width="30" height="24" class="d-inline-block align-text-top">
-      Hello Linker
+      Hello Linker  
     </a>
   
     <div class="searchContainer" role="search position-sticky sticky-top">
@@ -25,11 +24,18 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropDown<?php echo  $user[0]['userName']; ?>">
         <li><span class="dropdown-item"><span class="badge text-bg-primary"><?php echo  $user[0]['userRole']; ?></span></span></li>
-        <li><a class="dropdown-item" href="<?php herf('index.php') ?>"><i class="fa-solid fa-binoculars"></i> View as user</a></li>
+        <?php if ($_SESSION['role'] == 'admin') { ?>
+          <li><a class="dropdown-item" href="<?php herf('index.php') ?>"><i class="fa-solid fa-binoculars"></i> View as user</a></li>
+        <?php } ?>
         <li>
           <hr class="dropdown-divider">
         </li>
-        <li><a class="dropdown-item" href="<?php herf('user/auth/logout.php?logout=true') ?>"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+        <?php if ($_SESSION['email'] == 'gust@gmail.com') { ?>
+        <li><a class="dropdown-item" href="<?php herf('login.php') ?>"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+        <?php }else{ ?>
+          <li><a class="dropdown-item" href="<?php herf('user/auth/logout.php?logout=true') ?>"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+
+        <?php } ?>
       </ul>
     </div>
     <div class="align-items-center menuContainer position-relative">

@@ -15,7 +15,7 @@
   <?php 
   include('function.php');
   // <!-- Security  -->
-//  include('protected/Auth.php');
+ include('protected/Auth.php');
 // <!-- endSecurity -->
   include('master/navbar.php');
   include('user/modals.php');

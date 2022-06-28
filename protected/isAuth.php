@@ -1,6 +1,6 @@
 <?php 
 
-if (isset($_SESSION['email'])) {
+if (isset($_SESSION['auth'])) {
     url('index.php');
 }
 ?>

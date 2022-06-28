@@ -1,4 +1,4 @@
-fetch("https://hellolinker.000webhostapp.com/master/apilink.php")
+fetch("http://hellolinker.epizy.com/master/apilink.php")
 .then(result => result.json())
 .then(links => {
   console.log(links);

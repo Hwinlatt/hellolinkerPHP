@@ -5,9 +5,10 @@ if (ip('lEmail') && ip('lPassword')) {
     $password = $_POST['lPassword'];
     $user = selectQuery('users','email',$email);
     if (password_verify($password,$user[0]['password']) == 1){
-        echo $_SESSION['id'] = $user[0]['id'];
-        echo $_SESSION['role'] = $user[0]['userRole'];
-        echo $_SESSION['email'] = $user[0]['email'];
+        $_SESSION['id'] = $user[0]['id'];
+        $_SESSION['role'] = $user[0]['userRole'];
+        $_SESSION['email'] = $user[0]['email'];
+        $_SESSION['auth'] = true;
         if ($user[0]['userRole'] == 'admin') {
           url('admin/dashboard.php');
         }else{
