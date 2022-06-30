@@ -6,12 +6,16 @@ fetch("http://localhost/Linker/master/apilink.php")
     $(document).ready(function(){
       $data = "";
         links.forEach(link => {
+            let premium = '';
+            if (link.type == "premium") {
+               premium = '<i class="fa-solid fa-crown text-warning"></i>';
+            }
             $data += `
             <div class="card m-1" style="width: 10rem;">
             <img src="${link.link_img}" class="card-img-top" alt="...">
             <div class="card-body">
-              <div class=""><h6 class="card-title">${link.title}</h6> <small class="fs-smallest opacity-75">${link.name}</small></div>
-              <button data-bs-toggle="modal" data-bs-target="#linkInfo${link.id}" class="btn btn-outline-primary">More</button>
+              <div class=""><h6 class="card-title">${link.title} ${premium}</h6> <small class="fs-smallest opacity-75">${link.name}</small></div>
+              <a class="btn btn-sm mt-1 btn-primary" href="user/view/selectPatch.php?linkPatch=${link.title} & linkId=${link.id}">More <i class="fa-solid fa-circle-arrow-right"></i></a>
             </div>
           </div>`
         });
@@ -36,99 +40,6 @@ fetch("http://localhost/Linker/master/apilink.php")
       });      
       $('.linkContainer').html($data);
     })
-// --Comment--
-
-    $(document).ready(function(){
-      
-    })
-    function deleteComment(){
-      $('.delCommentBtn').click(function(){
-        const delId = $(this).attr('id');
-        const linkId = $(this).attr('linkId')
-        if (confirm('Delete Comment?')) {
-          $(this).closest('tr').hide(500);
-          $.ajax({
-            url:"user/comment/comment.php",
-            type:"POST",
-            data:{delId},
-            success:function(data){
-               modalAlert(data,'green');
-            $('.commentCount'+linkId).html(parseInt($('.commentCount'+linkId).html())-1);
-               
-            },
-            error:function(data){
-              alert(data);
-            }
-          })
-        }
-      })
-    }
-    function modalAlert(text,color) {
-      $('.modalnotiArea').css({'color':color}).html(text);
-            setTimeout(() => {
-              $('.modalnotiArea').html('');
-            }, text.length*200);
-    }
-    function selectComment(selId){
-        $.ajax({
-          url:'user/comment/comment.php',
-          type:"POST",
-          data:{selId},
-          success:function(data){
-            $('.tableBodyComment'+selId).html(data);
-            deleteComment();
-          },
-          error:function(data){
-            console.log(data);
-            
-          }
-        })
-    }
-  
-    deleteComment();
-
-    $('.commentSubmit').click(function(){
-      const userId = $(this).attr('userId'); 
-      const linkId = $(this).attr('linkId');
-      const  commentText = $('.commentInput'+linkId).val() ;
-      if (commentText != '') {
-        $.ajax({
-          url:'user/comment/comment.php',
-          type:'POST',
-          data:{commentText,userId,linkId},
-          success:function(data){
-            $('.commentInput'+linkId).val('');
-            modalAlert(data,'green');
-            selectComment(linkId);
-            let count  = parseInt($('.commentCount'+linkId).html())
-            
-            $('.commentCount'+linkId).html(parseInt($('.commentCount'+linkId).html())+1);
-          },
-          error:function(data){
-            alert(data);
-          }
-        })
-      }else if(commentText == ''){
-        modalAlert('Comment text is empty!','red');
-      }
-    })
-    $('.reportLinkBtn').click(function(){
-      let reportLink = $(this).attr('id');
-      if (confirm("The Link is not work.(လင့်က အလုပ်မလုပ်ပါ)")){
-        $.ajax({
-          url:'admin/action/linkAction.php',
-          type:"POST",
-          data:{reportLink},
-          success:function(data){
-            modalAlert(data,"orange");
-          },
-          error:function(data){
-            alert(data);
-          }
-        })
-      }
-    })
-    
 
 })
 $(".menuContainer").click(function () {

@@ -7,8 +7,9 @@ if (ip('addLinkLink') && ip('addLinkTitle')) {
     $detail = $_POST['addLinkDetail'];
     $category = $_POST['addLinkCategory'];
     $type = $_POST['addLinkType'];
-    mysqli_query($conn, "INSERT INTO linksinformation (title,link_img,detail,link,type,category) 
-    VALUES ('$title','$img_link','$detail','$link','$type','$category')");
+    $trailer = $_POST['addLinkTrailer'];
+    mysqli_query($conn, "INSERT INTO linksinformation (title,link_img,detail,link,type,category,link_trailer) 
+    VALUES ('$title','$img_link','$detail','$link','$type','$category','$trailer')");
     url('admin/dashboard.php');
     return;
 }
@@ -33,7 +34,8 @@ if (ip('updateLinkLink') && ip('updateLinkTitle')) {
     $img_link = $_POST['updateLinkImg'];
     $detail = $_POST['updateLinkDetail'];
     $type = $_POST['updateLinkType'];
-    mysqli_query($conn, "UPDATE linksinformation SET title='$title',link_img='$img_link',detail='$detail',link='$link',type='$type' WHERE id='$id'");
+    $trailer = $_POST['updateLinkTrailer'];
+    mysqli_query($conn, "UPDATE linksinformation SET title='$title',link_img='$img_link',detail='$detail',link='$link',type='$type',link_trailer='$trailer' WHERE id='$id'");
     url('admin/dashboard.php');
 };
 

@@ -1,5 +1,7 @@
 <?php
 include('../../function.php');
+include('../../protected/IsAdmin.php');
+
 if (ig('deluserid')) {
     $id = $_GET['deluserid'];
     deleteQuery('users', 'id', $id);
@@ -48,7 +50,7 @@ if(ip('updateUserReq')){
 
 <body>
     <?php if (ig('edituserid')) { 
-        $id = $_GET['edituserid']; 
+        $id = $_GET['edituserid'];
         $user = selectQuery('users','id',$id);
         $role = $user[0]['userRole'];
         ?>
@@ -89,7 +91,7 @@ if(ip('updateUserReq')){
 
 
 
-    <?php include('../../master/cdnBotton.php') ?>
+    <?php include('../../master/cdnBotton.php') ; ?>
 </body>
 
 </html>

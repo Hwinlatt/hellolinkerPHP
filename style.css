@@ -3,8 +3,31 @@
     /* font-family: 'Saira Semi Condensed', sans-serif; */
     
 }
+.modalnotiArea{
+    position: fixed;
+    bottom:  3px;
+    right: 3px;
+    width: fit-content;
+    display: none;
+    z-index: 10;
+    background: #98C1FE;
+}
 .dafault-font{
     font-family: 'Saira Semi Condensed', sans-serif;
+}
+.pointer{
+    cursor: pointer;
+
+}
+.selectedNow{
+    background: #C2DBFE;
+}
+.line-mf{
+    display: block;
+    width: 100px;
+    margin: auto;
+    height: 2px;
+    background: blue;
 }
 .leftMenuBar{
     position: sticky;
@@ -18,6 +41,7 @@ body{
 }
 .leftMenuBar li{
     background: #E7E9EB;
+    
 }
 .leftMenuBar a{
     text-decoration: none;
@@ -31,10 +55,7 @@ body{
 .fs-smallest{
     font-size: smaller;
 }
-.commentTable{
-    height: 50vh;
-    overflow: auto;
-}
+
 .line{
     width: 30px;
     height: 2px;

@@ -1,6 +1,10 @@
 <?php 
 include('../../function.php');
 include('../../protected/Auth.php');
+if (ip('commentCount')) {
+    $link_id = $_POST['likeId'];
+    echo countQuery('comment','link_id',$link_id);
+}
 if (ip('commentText') && ip('linkId')) {
     $text = $_POST['commentText'];
     $link_id = $_POST['linkId'];
@@ -21,9 +25,16 @@ if (ip('delId')) {
     }
 }
 if (ip('selId')) {
+    $startPoint = $_POST['startPoint'];
+    $start = 0;
+    $limit = 6;
+    if ($startPoint > 1) {
+        $start = $startPoint*$limit;
+    }
     $id = $_POST['selId'];
     $return = '';
-    $comments = selectQuery('comment','cmt_user','id','users','link_id',$id,'cmt_id',"DESC") ;
+
+    $comments = selectQuery('comment','cmt_user','id','users','link_id',$id,'cmt_id',"DESC LIMIT $start,$limit") ;
     while ($comment = mysqli_fetch_assoc($comments)) {
         $return.='
         <tr>

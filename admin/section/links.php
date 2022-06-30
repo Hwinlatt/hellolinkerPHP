@@ -31,11 +31,12 @@ include('../../protected/IsAdmin.php') ?>
         </table>
     </div>
     <div class="col-md-4">
+        <!-- Add Form -->
         <div class="p-2 border border-silver shadow rounded-4 bg-silver addForm">
             <h5 class="text-center">Add Link Form</h5>
             <form action="action/linkAction.php" method="post">
                 <input required type="text" class="form-control my-1" name="addLinkTitle" placeholder="Enter Title">
-                <input required type="url" class="form-control my-1" name="addLinkLink" placeholder="Enter link https://">
+                <input required type="url" class="form-control my-1" name="addLinkLink" placeholder="Enter View link https://">
                 <input required type="text" class="form-control my-1" name="addLinkImg" placeholder="Enter Img Link https://">
                 <textarea required name="addLinkDetail" id="" rows="6" class="form-control my-1" placeholder="Enter Detail"></textarea>
                 <select class="form-select linkCategory" name="addLinkCategory" aria-label="Default select example">
@@ -44,6 +45,8 @@ include('../../protected/IsAdmin.php') ?>
                     <option value="<?php echo $category['category_id'] ?>"><?php echo  $category['name'] ?></option>
                     <?php } ?>
                 </select>
+                <small>Movie tmpfile (Trailer)</small><i class="fa-solid fa-circle-down"></i>
+                <textarea type="text" class="form-control" name="addLinkTrailer" rows="4" placeholder='<iframe youtube'></textarea>
                 <input required type="radio" class="form-check-input required" value="free" name="addLinkType" checked> <label class="form-check-label" for="">Free</label>
                 <input required type="radio" class="form-check-input" value="premium" name="addLinkType"> <label class="form-check-label" for="">Premium</label>
                 <button type="submit" class="btn btn-primary w-100 mt-2">Add</button>
@@ -68,6 +71,8 @@ include('../../protected/IsAdmin.php') ?>
                     <option class="categoryOption" value="<?php echo $category['category_id'] ?>"><?php echo  $category['name'] ?></option>
                     <?php } ?>
                 </select>
+                <small>Movie tmpfile (Trailer)</small><i class="fa-solid fa-circle-down"></i>
+                <textarea type="text" class="form-control updateLinkTrailer" rows="4" name="updateLinkTrailer" placeholder='<iframe youtube'></textarea>
                 <input required type="radio" class="form-check-input required updateLinkTypeF" value="free" name="updateLinkType"> <label class="form-check-label" for="">Free</label>
                 <input required type="radio" class="form-check-input updateLinkTypeP" value="premium" name="updateLinkType"> <label class="form-check-label" for="">Premium</label>
                 <button type="submit" class="btn btn-primary w-100 mt-2">Update</button>
@@ -82,6 +87,7 @@ include('../../protected/IsAdmin.php') ?>
     $(document).ready(function(){
  
     })
+    // Edit Link 
     $('.editLink').click(function() {
         const editId = $(this).attr('linkId');
         $('.addForm').hide();
@@ -100,6 +106,7 @@ include('../../protected/IsAdmin.php') ?>
                 $('.updateLinkImg').val(data[0].link_img);
                 $('.updateLinkDetail').val(data[0].detail);
                 $('.updateLinkId').val(data[0].id);
+                $('.updateLinkTrailer').val(data[0].link_trailer);
                 $('.categoryOption').each(function(){
                     if ($(this).val()==data[0].category) {
                         $(this).attr('selected','true');
