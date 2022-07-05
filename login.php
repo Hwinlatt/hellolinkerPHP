@@ -33,7 +33,7 @@
                         <input type="checkbox" class="form-check-input remember" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">Remember Password</label>
                     </div>
-                    <button type="button" class="btn btn-primary login">Login</button> 
+                    <button type="button" class="btn btn-primary login">Login</button> <a class="btn btn-secondary">Gust</a>
                     <small class="loginCheckMessage text-danger"></small><br>
                     <small>If You Don't have accout<button type="button" class="btn btn-link goRegister">register here</button></small>
                 </form>

@@ -10,7 +10,7 @@ if (ip('lEmail') && ip('lPassword')) {
         $_SESSION['email'] = $user[0]['email'];
         $_SESSION['auth'] = true;
         if ($user[0]['userRole'] == 'admin') {
-          url('admin/dashboard.php');
+          url('admin/section/linksAdmin.php');
         }else{
          url('index.php');}
     }else{

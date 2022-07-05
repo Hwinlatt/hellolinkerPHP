@@ -2,10 +2,39 @@
 include('../../function.php');
 include('../../protected/IsAdmin.php');
 
+
+// Search Retutn to section 
+if (ip('searchKey')) {
+    $key = $_POST['searchKey'];
+    $users =  selectQuery("users WHERE userName LIKE '%".$key."%'");
+    $return = '';
+    if (mysqli_num_rows($users) == 0) {
+        echo '<h3 class="text-center">There is nothint to show users<span class="text-danger">% '.$key.' %</span></h3><img src="../../img/thinkemoji.png" class="w-50" alt="...">';
+        return;
+    }
+    while ($user = mysqli_fetch_assoc($users)){
+        $return.='<tr>
+        <td>'.$user['id'].'</td>
+        <td>'.$user['userName'].'</td>
+        <td>'.$user['email'].'</td>
+        <td>'.$user['userRole'].'</td>
+        <td>
+            <a href="../action/userAction.php?edituserid='.$user['id'].'" class="btn btn-link">Edit</a>
+            <a onclick="return confirm(`Are your sure to delet this user`)" href="../action/userAction.php?deluserid='.$user['id'].'" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>';
+    }
+    echo $return;
+    return;
+}
+
+
+
+
 if (ig('deluserid')) {
     $id = $_GET['deluserid'];
     deleteQuery('users', 'id', $id);
-    url('admin/dashboard.php');
+    url('admin/section/usersAdmin.php');
     return;
 };
 $color = "text-danger";
@@ -34,7 +63,7 @@ if(ip('updateUserReq')){
     $role = $_POST['upUserRole'];
     $id = $_GET['edituserid'];
     mysqli_query($conn,"UPDATE users SET userName='$name',email='$email',userRole='$role' WHERE id=$id;");
-    url('admin/dashboard.php');
+    url('admin/section/usersAdmin.php');
 }
 ?>
 <!DOCTYPE html>
@@ -49,7 +78,7 @@ if(ip('updateUserReq')){
 </head>
 
 <body>
-    <?php if (ig('edituserid')) { 
+    <?php if (ig('edituserid')) {
         $id = $_GET['edituserid'];
         $user = selectQuery('users','id',$id);
         $role = $user[0]['userRole'];
@@ -57,7 +86,7 @@ if(ip('updateUserReq')){
         
         <div class="container mt-3">
             <div class="row">
-                <div><a href="<?php herf('admin/dashboard.php') ?>" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left"></i> Back</a></div>
+                <div><a href="<?php herf('admin/section/usersAdmin.php') ?>" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left"></i> Back</a></div>
             </div>
             <div class="row d-flex justify-content-center mt-5">
                 <div class="col-md-4 p-2 border rounded">
@@ -77,7 +106,7 @@ if(ip('updateUserReq')){
                 </div>
                 <div class="col-md-4">
                     <h5 class="text-center">Actions</h5><br>
-                    <a onclick="return confirm('Are your sure to delet this user')" href="?deluserid="<?php echo $id ?> class="btn btn-danger">Delete</a>
+                    <a onclick="return confirm('Are your sure to delet this user')" href="?deluserid=<?php echo $id ?>" class="btn btn-danger">Delete</a>
                     <div class="border-bottom border-secondary mt-2 mx-3"></div>
                     <form action="" method="POST" class="">
                         <input type="password"  name="resetPassword"  class="form-control my-2 resetPassword" placeholder="Enter New Password">

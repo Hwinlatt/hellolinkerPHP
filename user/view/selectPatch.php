@@ -85,7 +85,11 @@
                         HELLO
                     </div>
                     <div class="commentTable border rounded mt-2">
-                    <div class="row mt-1">
+                        <div class="row">
+                            <div class="text-center m-auto p-2 border" style="width: fit-content;">
+                                <i class="fa-solid fa-pager"></i>
+                                <span class="PaginationNumber">1</span>
+                            </div>
                             <div>
                                 <nav aria-label="Page navigation example" class="paginationContainer">
                                     <ul class="pagination paginationSelect d-flex justify-content-center">
@@ -97,10 +101,6 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <div class="text-center m-auto p-2 border" style="width: fit-content;">
-                                <i class="fa-solid fa-pager"></i>
-                                <span class="PaginationNumber">1</span>
-                            </div>
                         </div>
                         <table class="table">
                             <tbody class="tableBodyComment<?php echo  $link['id'] ?>" style="transition: 0.5s;">
@@ -108,7 +108,23 @@
                             </tbody>
                         </table>
                         <!-- ---Pagination--  -->
-
+                        <div class="row">
+                            <div class="text-center m-auto p-2 border" style="width: fit-content;">
+                                <i class="fa-solid fa-pager"></i>
+                                <span class="PaginationNumber">1</span>
+                            </div>
+                            <div>
+                                <nav aria-label="Page navigation example" class="paginationContainer">
+                                    <ul class="pagination paginationSelect d-flex justify-content-center">
+                                        <li class="page-item"><button class="page-link PaginationSelected">1</button></li>
+                                        <li class="page-item"><button class="page-link">2</button></li>
+                                        <li class="page-item"><button class="page-link">3</button></li>
+                                        <li class="page-item"><button class="page-link">4</button></li>
+                                        <li class="page-item"><button class="page-link">5</button></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -303,7 +319,7 @@
                         reportLink
                     },
                     success: function(data) {
-                        modalAlert(data, "orange");
+                        modalAlert(data, "green");
                     },
                     error: function(data) {
                         alert(data);
