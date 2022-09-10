@@ -27,7 +27,8 @@ $user = selectQuery('users', 'email', $_SESSION['email']); ?>
       <ul class="dropdown-menu" aria-labelledby="dropDown<?php echo  $user[0]['userName']; ?>">
         <li><span class="dropdown-item"><span class="badge text-bg-primary"><?php echo  $user[0]['userRole']; ?></span></span></li>
         <?php if ($_SESSION['role'] == 'admin') { ?>
-          <li><a class="dropdown-item" href="<?php herf('index.php') ?>"><i class="fa-solid fa-binoculars"></i> View as user</a></li>
+          <li><a class="dropdown-item" href="<?php herf('index.php') ?>"><i class="fa-solid fa-eye"></i> View as user</a></li>
+          <li><a class="dropdown-item" href="<?php herf('admin/section/linksAdmin.php') ?>"><i class="fa-solid fa-binoculars"></i> Admin Dashboard</a></li>
         <?php } ?>
         <li>
           <hr class="dropdown-divider">

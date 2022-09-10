@@ -46,7 +46,7 @@ if (ip('updateLinkLink') && ip('updateLinkTitle')) {
 //Search Link
 if(ip('searchKey')){
     $key = $_POST['searchKey'];
-    $links = selectQuery('linksinformation', 'category', "category_id WHERE linksinformation.title LIKE '%$key%'", 'categorys');
+    $links = selectQuery('linksinformation', 'category', "category_id WHERE linksinformation.detail LIKE '%$key%' ORDER BY linksinformation.id DESC", 'categorys');
     $retrun = '';
     if (mysqli_num_rows($links) == 0) {
         echo '<h3 class="text-center">There is nothint to show links<span class="text-danger">% '.$key.' %</span></h3><img src="../../img/thinkemoji.png" class="w-50" alt="...">';

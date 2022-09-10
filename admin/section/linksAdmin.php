@@ -38,7 +38,7 @@
                                     <th>Action</th>
                                 </thead>
                                 <tbody class="linkTableBody">
-                                    <?php $links = selectQuery('linksinformation', 'category', 'category_id', 'categorys');
+                                    <?php $links = selectQuery('linksinformation', 'category', 'category_id ORDER BY linksinformation.id DESC', 'categorys');
                                     while ($link = mysqli_fetch_assoc($links)) { ?>
                                         <tr>
                                             <td><?php echo $link['id'] ?></td>

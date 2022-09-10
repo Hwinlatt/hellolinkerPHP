@@ -21,7 +21,11 @@
   ?>
   <div class="container-fluid">
     <div class="row" style="background:#E5E6E7;">
-      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <div class="AdsContainerTopLeft">
+        <div class="w-100 AdsArea"></div>
+        </div>
+      </div>
       <!-- -- Links --  -->
       <div class="col-md-8">
         <?php
@@ -35,15 +39,15 @@
           $id = 1;
         }
         $key = '';
-        $links = selectQuery('linksinformation', 'category', 'category_id LIMIT ' . $start . ',' . $limit . '', 'categorys');
+        $links = selectQuery('linksinformation', 'category', 'category_id ORDER BY linksinformation.id DESC LIMIT ' . $start . ',' . $limit . '', 'categorys');
 
         if (ig('k')) {
           $key = $_GET['k'];
           $pages = ceil(countQuery("linksinformation WHERE detail LIKE '%" . $key . "%'") / $limit);
           if ($pages == 0) {
-            echo '<h3 class="text-center">There is nothint to show links<span class="text-danger">% '.$key.' %</span></h3><img src="img/thinkemoji.png" class="w-50" alt="...">';
+            echo '<h3 class="text-center">There is nothint to show links<span class="text-danger">% ' . $key . ' %</span></h3><img src="img/thinkemoji.png" class="w-50" alt="...">';
           }
-          $links = selectQuery('linksinformation', 'category', "category_id WHERE detail LIKE '%" . $key . "%' LIMIT " . $start . "," . $limit . "", 'categorys');
+          $links = selectQuery('linksinformation', 'category', "category_id WHERE detail LIKE '%" . $key . "%' ORDER BY linksinformation.id DESC LIMIT " . $start . "," . $limit . "", 'categorys');
         }
         ?>
 
@@ -124,21 +128,29 @@
   <script src="script.js"></script>
   <script>
     // ----- show link in index ---
-    $(document).ready(function() {
-      if (localStorage.getItem('searchInput')) {
-        let search = localStorage.getItem('searchInput');
-        $('.navSearchBtn').attr('href', `?k=${search}&p=1`);
-        $('.searchInputLinks').val(search);
-      }
 
-    });
+    $('.searchInputLinks').attr('disabled', 'true');
+    $('.navSearchBtn').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Loading...</span>`);
+
     $('.clearInput').click(function() {
       $('.navSearchBtn').attr('href', `index.php`);
       localStorage.removeItem('searchInput');
     })
+
     fetch("http://localhost/Linker/master/apilink.php")
       .then(result => result.json())
       .then(links => {
+        $(document).ready(function() {
+          $('.searchInputLinks').removeAttr('disabled');
+          $('.navSearchBtn').html(`<i class="fa-solid fa-magnifying-glass"></i>`);
+
+          if (localStorage.getItem('searchInput')) {
+            let search = localStorage.getItem('searchInput');
+            $('.navSearchBtn').attr('href', `?k=${search}&p=1`);
+            $('.searchInputLinks').val(search);
+          }
+
+        });
         $('.searchInputLinks').keyup(function() {
           let key = $(this).val().toLowerCase();
 
